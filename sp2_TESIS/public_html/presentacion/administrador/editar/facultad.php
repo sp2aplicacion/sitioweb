@@ -1,0 +1,66 @@
+<?php
+session_start();	
+	require_once('logica/Administrador.php');	
+	require_once('logica/Facultad.php');	
+	$idPersona=$_SESSION['idPersona'];
+	if($idPersona=="")
+		{
+		?>
+		<script>location.replace('index.php');</script>	
+		<?php	
+		}
+	$persona = new Administrador(array($idPersona));
+	$persona->consultarNombre();
+	if($persona->getNombre()=="")
+		{
+		?>
+		<script>location.replace('index.php?id=-1');</script>	
+		<?php			
+		}
+	$id=$_GET['idEdit'];
+	$facultad = new Facultad(array($id));
+	$facultad->consultar();
+?>
+<!DOCTYPE html>
+<html>
+ <head>
+ 	<script src="scripts/validarIngresarFacultad.js"></script>
+	<link rel="stylesheet" href="estilos/sexyalertbox.css" type="text/css" media="all" />
+	<script src="scripts/mootools.js" type="text/javascript"></script>
+	<script src="scripts/sexyalertbox.packed.js" type="text/javascript"></script>
+	<script>
+		window.addEvent('domready', function() {
+		    Sexy = new SexyAlertBox();
+		});
+
+		function validar()
+			{
+			if((mensaje=verificar(document.forms.Formulario))!="") 
+				{Sexy.alert('<h1>Alerta</h1><em>Validacion de Facultad</em><p>'+mensaje+'</p>');return false;}
+			}
+	</script>
+	<body>
+		<div align="center"><?php include("presentacion/banner.php")?></div>
+<div align="right">Usted esta en el sistema como Coordinador de Prácticas: <?php echo $persona->getNombre() . " " . $persona->getApellido(); ?></div>
+<table class="tabla">
+	<tr>
+		<td class="menu"><?php include("presentacion/menuAdministrador.php");?></td>		
+		<td valign="top">
+			<h3>Editar Facultad</h3>
+
+			<form name="Formulario" method="post" action="index.php?id=267">
+				<div align="center">
+				<fieldset><label class="impar" onMouseOver="this.className='verde'" onMouseOut="this.className='impar'">*ID</label><input name="id" type="text" value="<?php echo $facultad->getId() ?>" readonly></fieldset>
+				<fieldset><label class="impar" onMouseOver="this.className='verde'" onMouseOut="this.className='impar'">*Nombre</label><input name="nombre" type="text" value="<?php echo $facultad->getNombre() ?>"></fieldset>
+				<fieldset><label class="impar" onMouseOver="this.className='verde'" onMouseOut="this.className='impar'">*Decano</label><input name="decano" type="text" value="<?php echo $facultad->getDecano() ?>"></fieldset>
+				<fieldset><label class="impar" onMouseOver="this.className='verde'" onMouseOut="this.className='impar'">*Coordinador</label><input name="coordinador" type="text" value="<?php echo $facultad->getCoordinador() ?>"></fieldset>
+				<fieldset><label class="impar" onMouseOver="this.className='verde'" onMouseOut="this.className='impar'">Telefono</label><input name="telefono" type="text" value="<?php echo $facultad->getTelefono() ?>"></fieldset>
+				<input name="enviar" type="submit" value="Enviar" onClick="return validar();">
+				</div>
+			</form>
+		</td>
+	</tr>
+</table>
+	</body>
+ </head>
+</html>
