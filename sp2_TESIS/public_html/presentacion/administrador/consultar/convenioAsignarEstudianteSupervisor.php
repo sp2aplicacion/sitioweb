@@ -39,7 +39,7 @@ function mensaje(men,parametro){
 </script>
 </head>
 <body>
-<div align="center"><?php include("presentacion/banner.php")?></div>
+<div align="center"><?php include("presentacion/banner.php");?></div>
 <div align="right">Usted esta en el sistema como Coordinador de Prácticas: <?php echo $persona->getNombre() . " " . $persona->getApellido(); ?></div>
 <form name="Formulario">
 <table class="tabla">

@@ -47,8 +47,8 @@ function mensaje(men,parametro){
 <script src="scripts/ajax.js"></script>
 </head>
 <body>
-<div align="center"><?php include("presentacion/banner.php")?></div>
-<div align="right">Usted esta en el sistema como Coordinador de Prácticas: <?php echo $persona->getNombre() . " " . $persona->getApellido(); ?></div>
+<div align="center"><?php include("presentacion/banner.php");?></div>
+<div align="right">Usted esta en el sistema como Coordinador de Pr&aacute;cticas: <?php echo $persona->getNombre() . " " . $persona->getApellido(); ?></div>
 <?php if($eliminado) {echo "<div align='center' class='rojo'><strong>El Estudiante fue eliminado correctamente.</strong></div>";} ?>
 <table class="tabla">
 	<tr>
